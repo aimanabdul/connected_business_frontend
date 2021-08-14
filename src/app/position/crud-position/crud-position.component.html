@@ -1,0 +1,99 @@
+<div class="container mt-3">
+    <div class="row">
+        <ul class="nav nav-tabs">
+          <li class="nav-item">
+            <a class="nav-link" aria-current="page" href="/company/view">Bedrijfsprofile</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/company/employees">Medewerkers</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/company/groups/view">Groepen</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" href="/positions">Posities</a>
+          </li>
+        </ul>
+    </div>
+    <h1 class="mt-3">Posities</h1>
+    <div class="row">
+        <p class="alert alert-danger text-center" role="alert" *ngIf="errorMessage">
+            <span>{{errorMessage}}</span>
+        </p>
+        <p class="alert alert-success text-center" role="alert" *ngIf="successMessage">
+            <span>{{successMessage}}</span>
+        </p>
+    </div>
+    <div class="row">
+        <div class="col">
+            <button type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#createPositionModal"><i class="fas fa-plus"></i> Positie aanmaken</button>
+        </div>
+    </div>
+    <div class="row mt-3">
+        <ul class="list-group" *ngFor="let position of positions">
+            <li class="list-group-item mb-1">
+                {{position.name}} &nbsp;&nbsp;
+                <button (click)="onClickDelete(position._id)" class="btn"><i class="fas fa-trash-alt fa-lg text-danger"></i></button>&nbsp;
+                <button (click)="onClickEdit(position._id)" class="btn" data-bs-toggle="modal" data-bs-target="#editPositionModal"><i class="fas fa-pen-square fa-lg text-primary"></i></button>
+            </li>
+        </ul>
+    </div>
+
+    <!-- create position modal -->
+    <div class="row">
+        <div class="modal fade" id="createPositionModal" tabindex="-1" aria-labelledby="createPositionModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                <div class="modal-header">
+                    <h2 class="modal-title" id="createPositionModalLabel">Een positie aanmaken</h2>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="alert alert-danger" role="alert" *ngIf="errorMessage">{{errorMessage}}</div>
+                    <div class="alert alert-success" role="alert" *ngIf="successMessage">{{successMessage}}</div>
+                    <form #createPositionForm="ngForm" (ngSubmit)="onSubmitPositionForm(createPositionForm)">
+                        <div class="mb-3">
+                            <label for="name" class="form-label">Naam</label>
+                            <input type="text" class="form-control" id="name" name="name" ngModel #name="ngModel" placeholder="bv. klanten service medewerker" required>
+                            <div [hidden]="name.valid" class="alert alert-danger">naam is vereist</div>
+                        </div>
+                        <div>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuleren</button> &nbsp;
+                            <button type="submit" [disabled]="!createPositionForm.form.valid" class="btn btn-primary">Aanmaken</button>
+                        </div>
+                    </form>
+                </div>
+                </div>
+            </div>
+            </div>
+    </div>
+
+        <!-- edit position modal -->
+        <div class="row">
+            <div class="modal fade" id="editPositionModal" tabindex="-1" aria-labelledby="editPositionModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                    <div class="modal-header">
+                        <h2 class="modal-title" id="editPositionModalLabel">Een positie bewerkern</h2>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="alert alert-danger" role="alert" *ngIf="errorMessage">{{errorMessage}}</div>
+                        <div class="alert alert-success" role="alert" *ngIf="successMessage">{{successMessage}}</div>
+                        <form #editPositionForm="ngForm" (ngSubmit)="onSubmitEditPositionForm()">
+                            <div class="mb-3">
+                                <label for="name" class="form-label">Naam</label>
+                                <input type="text" class="form-control" id="positionName" name="positionName" [(ngModel)]="position.name" #positionName="ngModel" placeholder="bv. klanten service medewerker" required>
+                                <div [hidden]="positionName.valid" class="alert alert-danger">naam is vereist</div>
+                            </div>
+                            <div>
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuleren</button> &nbsp;
+                                <button type="submit" [disabled]="!editPositionForm.form.valid" class="btn btn-primary">Opslaan</button>
+                            </div>
+                        </form>
+                    </div>
+                    </div>
+                </div>
+                </div>
+        </div>
+</div>

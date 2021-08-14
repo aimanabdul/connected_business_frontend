@@ -1,0 +1,26 @@
+<div class="container  text-center text-white">
+    <div class="row  mt-3 d-inline-flex shadow p-3 mb-5 bg-body rounded">
+        <h2 class="text-dark">Aanmelden</h2>
+            <form #signinForm="ngForm" (ngSubmit)="signin(signinForm)" >
+                <p class="alert alert-danger" role="alert" *ngIf="errorMessage">
+                        <span>{{errorMessage}}</span>
+                </p>
+                <p>
+                    <mat-form-field>
+                    <input matInput class="text-dark" placeholder="Username" type="text" ngModel  name="username" required/>
+                    </mat-form-field>
+                </p>
+                <p>
+                    <mat-form-field>
+                    <input matInput class="text-dark" placeholder="Password" ngModel  type="password"    name="password" required />
+                    </mat-form-field>
+                </p>
+        
+                <p>
+                    <button mat-raised-button color="primary" type="submit"
+                    [disabled]="!signinForm.form.valid">Inloggen</button>
+                </p>
+            </form>
+   </div>
+ </div>
+ 

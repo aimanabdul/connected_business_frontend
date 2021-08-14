@@ -1,0 +1,61 @@
+<div class="container">
+    <div class="row">
+        <h1 class="text-center">Groepsleden - {{group.name}}</h1>
+    </div>
+    <div class="row">
+        <ul class="nav nav-tabs">
+            <li class="nav-item">
+              <a class="nav-link" aria-current="page" href="/company/view">Groepsprofiel</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" >Groepsleden - {{group.name}}</a>
+            </li>
+        </ul>
+    </div>
+    <div class="row mt-3">
+        <div class="col">
+            <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#addMemberModal"><i class="fas fa-plus"></i> Een lid toevoegen</button>
+        </div>
+    </div>
+    <div class="row mt-3">
+        <div class="alert alert-dark text-center" role="alert" *ngIf="errorMessage">{{errorMessage}}</div>
+        <div class="alert alert-success text-center" role="alert" *ngIf="successMessage">{{successMessage}}</div>
+    </div>
+    <!-- List of users of the group -->
+    <div class="row">
+        <div class="col">
+            <ul class="list-group list-group-flush" *ngFor="let member of group.members">
+                <a class="mb-1">
+                    <li class="list-group-item">
+                        <span><i class="fas fa-user"></i></span> {{member.username}}
+                        <button type="button" (click)="removeUserFromGroupByUserId(member._id)" class="btn"><i class="fas fa-trash-alt text-danger"></i></button>
+                    </li>
+                </a>
+            </ul>
+        </div>
+    </div>
+    <!-- add member modal -->
+    <div class="modal fade" id="addMemberModal" tabindex="-1" aria-labelledby="addRoleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h3 class="modal-title" id="addRoleModalLabel">Een lid toevoegen</h3>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form #addMemberForm="ngForm" (ngSubmit)="addMember(addMemberForm)">
+                    <div class="alert alert-dark text-center" role="alert" *ngIf="errorMessage">{{errorMessage}}</div>
+                    <div class="alert alert-success text-center" role="alert" *ngIf="successMessage">{{successMessage}}</div>
+                    <div class="form-group mb-3">
+                        <label for="email" class="form-label">Email</label>
+                        <input class="form-control"  id="email" name="email" placeholder="bv. user@business.com" ngModel #email="ngModel" [email]=true required>
+                        <div [hidden]="email.valid" class="alert alert-danger">Email is vereist</div>
+                    </div>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuleren</button>&nbsp;
+                    <button type="submit" class="btn btn-success">Opslaan</button>   
+                </form>
+            </div>
+        </div>
+        </div>
+    </div>
+</div>

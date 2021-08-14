@@ -1,0 +1,118 @@
+<div class="container mt-3">
+    <div class="row text-center">
+        <h1>Employee detail</h1>
+    </div>
+    <div class="row">
+        <h1>Info</h1>
+        <p> <span class="fw-bold">Voornaam: </span> {{user.firstName}} </p>
+        <p> <span class="fw-bold">Familienaam: </span> {{user.lastName}} </p>
+        <p> <span class="fw-bold">Gebruikersnaam: </span> {{user.username}} </p>
+        <p> <span class="fw-bold">Email: </span> {{user.email}} </p>
+    </div>
+    <div class="row mt-xl">
+        <h1>Roles</h1>
+        <div class="col">
+            <button type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#addRoleModal"><i class="fas fa-plus text-sucess"></i> Een role toewijzen</button>
+        </div>
+        <div class="row">
+            <div class="col mt-1">
+                <ul class="list-group">
+                    <li class="list-group-item list-group-item-info" *ngFor="let role of user.roles">
+                        <i class="fas fa-user-shield fa-lg"></i>  {{role.name.toUpperCase()}}-ROLE
+                        <span class="badge">
+                            <button type="button" (click)="deleteRoleById(role._id, user._id)" class="btn"><i class="fas fa-trash-alt text-danger"></i></button>
+                        </span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="row mt-xl">
+        <h1>Positie</h1>
+        <div class="row">
+            <div class="col">
+                <button type="button" (click)="onClickEditPosition(user)" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#editPositionModal"><i class="far fa-edit"></i> Positie aanpassen</button>
+            </div>
+        </div>
+        <div class="row mt-1">
+            <div class="col">
+                <ul class="list-group col" *ngIf="!user.position">
+                    <li class="list-group-item list-group-item-dark">
+                        Nog geen positie!
+                    </li>
+                </ul>
+                <ul class="list-group" *ngIf="user.position">
+                    <li class="list-group-item list-group-item-info">
+                        <i class="fas fa-user-tag fa-lg"></i> <span >  {{position.name}}</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="row mt-xl">
+        <h1>Groepen</h1>
+        <div class="col">
+            <ul class="list-group col" *ngIf="user.groups.length == 0">
+                <li class="list-group-item list-group-item-dark">
+                    Nog geen groepen!
+                </li>
+            </ul>
+            <ul class="list-group" *ngIf="user.groups.length > 0">
+                <li class="list-group-item list-group-item-info" *ngFor="let role of user.roles">
+                    <i class="fas fa-users fa-lg"></i> groep  
+                    <span class="badge">
+                        <button type="button" class="btn"><i class="fas fa-trash-alt text-danger"></i></button>
+                    </span>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- add role Modal -->
+    <div class="modal fade" id="addRoleModal" tabindex="-1" aria-labelledby="addRoleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title" id="addRoleModalLabel">Kies rol:</h3>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="alert alert-danger" role="alert" *ngIf="errorMessage">{{errorMessage}}</div>
+                <div class="alert alert-success" role="alert" *ngIf="successMessage">{{successMessage}}</div>
+                <div class="modal-body">
+                    <form #addRoleForm="ngForm" (ngSubmit)="onSubmitAddRoleForm(addRoleForm)">
+                        <select ngModel name="role" class="form-select form-select-lg mb-3 text-dark" aria-label=".form-select-lg" > 
+                            <option  *ngFor="let role of roles"  [value]="role._id">{{role.name | uppercase}}_ROLE</option>     
+                        </select> 
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuleren</button>&nbsp;
+                            <button type="submit" class="btn btn-success">Opslaan</button>   
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit position modal -->
+    <div class="modal fade" id="editPositionModal" tabindex="-1" aria-labelledby="editPositionModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="editPositionModalLabel">Positie aanpassen</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="alert alert-danger" role="alert" *ngIf="errorMessage">{{errorMessage}}</div>
+            <div class="alert alert-success" role="alert" *ngIf="successMessage">{{successMessage}}</div>
+            <div class="modal-body">
+                <form #editPositionForm="ngForm" (ngSubmit)="onSubmitEditPositionForm(editPositionForm)">
+                    <select ngModel name="position" class="form-select form-select-lg mb-3 text-dark" aria-label=".form-select-lg" required>
+                        <option  *ngFor="let position of positions"  [value]="position._id">{{position.name}}</option>     
+                    </select> 
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuleren</button>&nbsp;
+                    <button type="submit" class="btn btn-primary">Opslaan</button>
+                </form>
+            </div>
+          </div>
+        </div>
+    </div>
+
+
+</div>

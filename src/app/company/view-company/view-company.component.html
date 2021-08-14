@@ -1,0 +1,62 @@
+<div class="container mt-3">
+    <div class="row">
+      <ul class="nav nav-tabs">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="/company/view">Bedrijfsprofile</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/company/employees">Medewerkers</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/company/groups/view">Groepen</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/positions">Posities</a>
+        </li>
+      </ul>
+    </div>
+    <h1 class="mt-3">Bedrijfsprofiel</h1>
+    <div class="row">
+        <p class="alert alert-danger text-center" role="alert" *ngIf="errorMessage">
+            <span>{{errorMessage}}</span>
+        </p>
+        <p class="alert alert-success text-center" role="alert" *ngIf="successMessage">
+            <span>{{successMessage}}</span>
+        </p>
+      <form #companyForm="ngForm" (ngSubmit)="onSubmit()">
+          <div class="row">
+                <div class="col col-sm-12 mb-3 form-group">
+                  <label for="name" class="form-label">Bedrijfsnaam</label>
+                  <input type="text" class="form-control" id="name" [(ngModel)]="company.name" name="name" placeholder="Bedrijfsnaam" #name="ngModel" required>
+                  <div [hidden]="name.valid" class="alert alert-danger">Bedrijfsnaam is verplicht</div>
+                </div>
+              <div class="col col-sm-12 mb-3 form-group">
+                  <label for="bio" class="form-label">Bio</label>
+                  <textarea type="text" class="form-control" id="bio" [(ngModel)]="company.bio" name="bio" placeholder="Bio" #bio="ngModel" required></textarea>
+                  <div [hidden]="bio.valid" class="alert alert-danger">Bio is verplicht</div>
+                </div>
+          </div>
+          <div class="row">
+              <h2>Locatie</h2>
+              <div class="col col-sm-12 mb-3 form-group">
+                  <label for="address" class="form-label">Adres</label>
+                  <input type="text" class="form-control" id="address" [(ngModel)]="company.address" name="address" #address="ngModel" placeholder="Adres" required>
+                  <div [hidden]="address.valid" class="alert alert-danger">Adres is verplicht</div>
+                </div>
+              <div class="col col-sm-12 mb-3 form-group">
+                  <label for="postalCode" class="form-label">Postcode</label>
+                  <input type="text" class="form-control" id="postalCode" [(ngModel)]="company.postalCode" name="postalCode" #postalCode="ngModel" placeholder="Postcode" required>
+                  <div [hidden]="postalCode.valid" class="alert alert-danger">Postcode is verplicht</div>
+                </div>
+              <div class="col col-sm-12 mb-3 form-group">
+                  <label for="city" class="form-label">Gemeente</label>
+                  <input type="text" class="form-control" id="city" [(ngModel)]="company.city" name="city" #city="ngModel"  placeholder="Gemeente" required>
+                  <div [hidden]="city.valid" class="alert alert-danger">Gemeente is verplicht</div>
+                </div>
+          </div>   
+          <div class="row mt-2">
+            <button [disabled]="!companyForm.form.valid" type="submit" class="btn btn-outline-success">Opslaan</button>
+          </div> 
+      </form>
+    </div>
+</div>

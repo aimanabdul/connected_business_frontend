@@ -1,0 +1,26 @@
+<div class="container text-center text-dark">
+    <div class="row mt-3">
+        <p class="alert alert-success mt-3" role="alert" *ngIf="successMessage">
+            <span>{{successMessage}}</span>
+        </p>
+    </div>
+    <div class="row  mt-3 d-inline-flex shadow p-3 mb-5 bg-body rounded">
+        <h2 class="text-dark">Een medewerker toevoegen</h2>
+        <form #addEmployeeForm="ngForm" (ngSubmit)="onSubmit(addEmployeeForm)">
+            <p class="alert alert-danger mt-3" role="alert" *ngIf="errorMessage">
+                <span>{{errorMessage}}</span>
+            </p>
+            <p>
+                <mat-form-field appearance="outline" [style.width.px]=300 >
+                    <mat-label>Email</mat-label>
+                    <input class="field-width" matInput placeholder="Email" ngModel type="email"  name="email" [email]="true" required >
+                    <mat-hint>bv. example@example.com</mat-hint>
+                </mat-form-field>
+            </p>
+            <p>
+                <button mat-raised-button color="primary" type="submit" [disabled]="!addEmployeeForm.form.valid">Toevoegen</button>
+            </p>
+        </form>
+
+    </div>
+</div>

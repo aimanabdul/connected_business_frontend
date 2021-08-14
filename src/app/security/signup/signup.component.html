@@ -1,0 +1,53 @@
+<div class="container  text-center">
+    <div class="row mt-3">
+        <p class="alert alert-success mt-3" role="alert" *ngIf="successMessage">
+          <span>{{successMessage}}</span>
+        </p>
+      </div>
+    <div class="row  mt-3 d-inline-flex shadow p-3 mb-5 bg-body rounded">
+        <h2 class="text-dark">Account aanmaken</h2>
+            <form #signupForm="ngForm" (ngSubmit)="onSubmit(signupForm)" >
+                <p class="alert alert-danger" role="alert" *ngIf="errorMessage">
+                        <span>{{errorMessage}}</span>
+                </p>
+                <p>
+                    <mat-form-field appearance="outline" [style.width.px]=327>
+                        <mat-label>Gebruikersnaam</mat-label>
+                        <input matInput placeholder="Gebruikersnaam" ngModel type="text"  name="username" required >
+                    </mat-form-field>
+                </p>
+                <p>
+                    <mat-form-field appearance="outline" [style.width.px]=327>
+                        <mat-label>Email</mat-label>
+                        <input class="field-width" matInput placeholder="Email" ngModel type="email"  name="email" [email]="true" required >
+                        <mat-hint>bv. example@example.com</mat-hint>
+                    </mat-form-field>
+                </p>
+                <!--<p>
+                    <mat-form-field appearance="outline">
+                        <mat-label>Email bevestigen</mat-label>
+                        <input matInput placeholder="Email bevestigen" ngModel type="email"  name="confirmEmail" [email]="true" required >
+                        <mat-hint>bv. example@example.com</mat-hint>
+                    </mat-form-field>
+                </p>-->
+                <p>
+                    <mat-form-field appearance="outline" [style.width.px]=327>
+                        <mat-label>Wachtwoord</mat-label>
+                        <input matInput placeholder="Wachtwoord" ngModel type="password"  name="password" required minlength="8" >
+                        <mat-hint>min. 8 karakters</mat-hint>
+                    </mat-form-field>
+                </p>
+                <!--<p>
+                    <mat-form-field appearance="outline">
+                        <mat-label>Wachtwoord bevestigen</mat-label>
+                        <input matInput placeholder="Wachtwoord bevestigen" ngModel type="password"  name="confirmPassword" required >
+                    </mat-form-field>
+                </p>-->
+                
+        
+                <p>
+                    <button mat-raised-button color="primary" type="submit" [disabled]="!signupForm.form.valid">Aanmaken</button>
+                </p>
+            </form>
+   </div>
+ </div>

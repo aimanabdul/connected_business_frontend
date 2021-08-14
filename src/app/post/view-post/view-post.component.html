@@ -1,0 +1,93 @@
+<div class="container mt-1">
+    <div class="row mb-2">
+        <ul class="nav justify-content-center bg-body rounded">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="/"><i class="fas fa-home fa-2x"></i></a>
+            </li>
+            <li class="nav-item">
+              <button class="nav-link btn " data-bs-toggle="modal" data-bs-target="#createPostModal"><i class="fas fa-pen-square fa-2x"></i></button>
+            </li>
+          </ul>
+    </div>
+    <div class="row">
+        <div class="alert alert-warning text-center" role="alert" *ngIf="errorMessage">{{errorMessage}}</div>
+        <div class="alert alert-success text-center" role="alert" *ngIf="successMessage">{{successMessage}}</div>
+    </div>
+    <div class="row mb-2" *ngFor="let post of posts">
+        <div class="card col shadow-sm" style="width: 18rem;" >
+            <img src="" class="card-img-top" alt="post image" *ngIf="post.photo">
+            <div class="card-body">
+               <p class="fw-bold"><i class="fas fa-user fa-2x"></i><span>&nbsp;{{post.author.username.toUpperCase()}}</span></p>
+               <p class="fw-bold">{{post.createdAt | date:'medium'}}</p>
+              <p class="card-text">{{post.text}}</p>
+              <!-- Like and comment -->
+              <div class="row">
+                <button class="btn col" (click)="onClickLike(post._id)" >
+                  <i class="fas fa-heart fa-2x"></i>  
+                  {{post.likes.length}} Likes 
+                </button>
+                <button class="btn col" (click)="onClickComment(post._id)" data-bs-toggle="modal" data-bs-target="#commentsModal">
+                  <i class="fas fa-comment-alt fa-2x"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+    </div>
+    <!-- Create post modal -->
+    <div class="modal fade" id="createPostModal" tabindex="-1" aria-labelledby="createPostModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h2 class="modal-title" id="createPostModalLabel">Een post plaatsen</h2>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="alert alert-warning text-center" role="alert" *ngIf="errorMessage">{{errorMessage}}</div>
+          <div class="alert alert-success text-center" role="alert" *ngIf="successMessage">{{successMessage}}</div>
+          <div class="modal-body">
+           <form #createPostForm="ngForm" (ngSubmit)="onSubmitPostForm(createPostForm)">
+            <div class="mb-3">
+              <label for="text" class="form-label">Uw idee delen..</label>
+              <textarea class="form-control" id="text" name="text" rows="5" ngModel #text="ngModel" required></textarea>
+              <div [hidden]="text.valid" class="alert alert-danger">Groepsnaam is verplicht</div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuleren</button>
+              <button type="submit" class="btn btn-primary">Plaatsen</button>
+            </div>
+           </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- comments modal -->
+    <div class="modal modal-dialog modal-dialog-scrollable" id="commentsModal" tabindex="-1" aria-labelledby="commentsModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h2 class="modal-title" id="commentsModalLabel">Reacties</h2>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="alert alert-warning text-center" role="alert" *ngIf="errorMessage">{{errorMessage}}</div>
+          <div class="alert alert-success text-center" role="alert" *ngIf="successMessage">{{successMessage}}</div>
+          <div class="modal-body" >
+            <div *ngFor="let comment of comments">
+              <p>
+                <i class="fas fa-user-circle fa-lg"></i> {{comment.user.username}}, {{comment.createdAt | date:'medium'}} <br/>
+                {{comment.text}}
+              </p>
+            </div>
+           <div class="justify-content-center">
+            <form  #createCommentForm="ngForm" (ngSubmit)="onSubmitCommentForm(createCommentForm)">
+              <div class="input-group mb-3">
+                <input type="text" id="comment" name="comment" class="form-control" placeholder="Typen.." aria-label="Recipient's username" aria-describedby="button-addon2" ngModel >
+                <button class="btn btn-outline-secondary" type="submit"  id="button-addon2"><i class="fas fa-paper-plane"></i></button>
+              </div>
+            </form>
+          </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+</div>
