@@ -6,7 +6,7 @@
         <div class="alert alert-success text-center" role="alert" *ngIf="successMessage">{{successMessage}}</div>
     </div>
     <div class="row mb-2" *ngFor="let post of posts">
-        <div class="card col shadow-sm" style="width: 18rem;" >
+        <div class="card col shadow" style="width: 18rem;" >
             <img src="" class="card-img-top" alt="post image" *ngIf="post.photo">
             <div class="card-body">
                <p class="fw-bold"><i class="fas fa-user fa-2x"></i><span>&nbsp;{{post.author.username.toUpperCase()}}</span></p>

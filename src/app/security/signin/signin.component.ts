@@ -5,6 +5,7 @@ import { AuthenticateService } from '../services/authenticate.service';
 import {Router} from "@angular/router";
 import { UserService } from 'src/app/user/services/user.service';
 import { User } from 'src/app/models/user.model';
+import { Role } from 'src/app/models/role.model';
 
 @Component({
   selector: 'app-signin',
@@ -29,6 +30,7 @@ export class SigninComponent implements OnInit {
   userLogin: UserLogin = new UserLogin();
   authenticatedUser: null;
   errorMessage: string= null;
+  authorities: Role[];
   signin(f: NgForm){
     this.userLogin.username = f.value.username;
     this.userLogin.password = f.value.password;
@@ -39,8 +41,11 @@ export class SigninComponent implements OnInit {
           localStorage.setItem('username', res.username);
           localStorage.setItem('userID', res._id);
           localStorage.setItem('accessToken', res.accessToken);
+          this.authorities = res.roles;
+          //console.log(this.authorities)
           // find user and set company id in localstorage
           this.findUser(res._id)
+          
           this.router.navigate(['/']);
         },
         err => {this.errorMessage = err.error.message;}
@@ -67,6 +72,15 @@ export class SigninComponent implements OnInit {
       //set companyID in localStorage
       if(res.companyID){
         localStorage.setItem('companyID', res.companyID);
+      }
+
+      // check if superadmin
+      // if superadmin set role superadmin in local storage
+      for(var i = 0; i < res.roles.length; i ++){
+        if(res.roles[i].name == "superadmin"){
+          localStorage.setItem('isSuperadmin', 'yes');
+
+        }
       }
     },
     err=>{this.errorMessage = "Fout bij het laden van gegevens van gebruiker"}

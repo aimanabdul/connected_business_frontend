@@ -90,21 +90,20 @@ export class ViewPostComponent implements OnInit {
   like = {} as Like;
   likeAfterCreated = {} as Like;
   post2 = {} as Post
-
   onClickLike(postID: string){
     this.like.userID = this.authUserID;
     this.like.postID = postID;
     console.log(this.like)
-    this.createLike(this.like)
+    this.createLike(this.like, postID)
   }
 
-  createLike(like: Like){
+  createLike(like: Like, postID: string){
     this._likeService.createLike(like).subscribe(res =>{
       // save the created like into likeAfterCreated
-      //this.likeAfterCreated = res;
+      this.likeAfterCreated = res;
       console.log(res)
       // find the post to update the likes array in it
-      //this.findPostById(postID);
+      this.findPostById(postID);
       
       },
      err =>{this.errorMessage = "Fout bij het aanmaken van like"}
