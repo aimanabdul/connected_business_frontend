@@ -11,13 +11,14 @@ import { LayoutModule } from '../layout/layout.module';
 import { UserService } from '../user/services/user.service';
 import { EmployeeDetailsComponent } from './employee-details/employee-details.component';
 import { PositionService } from '../position/services/position.service';
+import { RoleService } from '../role/services/role.service';
 
 
 
 
 @NgModule({
   declarations: [ CreateCompanyComponent, ViewCompanyComponent, EmployeesComponent, AddEmployeeComponent,  EmployeeDetailsComponent],
-  providers:[CompanyService, UserService, PositionService],
+  providers:[CompanyService, UserService, PositionService, RoleService],
   imports: [
     CommonModule,
     SharedModule,

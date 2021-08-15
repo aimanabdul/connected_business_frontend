@@ -16,6 +16,7 @@ export class LogoutComponent implements OnInit {
     if(localStorage.getItem('userID')){
       localStorage.clear();
       this.successMessage = "U bent afgemeld"
+      window.location.reload();
     }
     else {
       this.errorMessage = "404"

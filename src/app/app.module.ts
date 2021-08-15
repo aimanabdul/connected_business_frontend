@@ -17,7 +17,7 @@ import { RoleModule } from './role/role.module';
 import { GroupModule } from './group/group.module';
 import { PositionModule } from './position/position.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-
+import { HomeModule } from './home/home.module';
 
 @NgModule({
   declarations: [
@@ -38,7 +38,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     RoleModule,
     GroupModule,
     PositionModule,
-    NgbModule
+    NgbModule,
+    HomeModule
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS,

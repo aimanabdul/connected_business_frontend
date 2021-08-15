@@ -13,7 +13,8 @@ export class AppComponent {
   constructor(private router: Router){}
 
   username: string = null
-  userID: string;
+  userID: string = null;
+  
   ngOnInit(): void {
     this.username = localStorage.getItem('username');
     this.userID = localStorage.getItem('userID');

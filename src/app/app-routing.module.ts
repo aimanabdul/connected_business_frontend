@@ -14,9 +14,11 @@ import { GroupDetailsComponent } from './group/group-details/group-details.compo
 import { GroupMembersComponent } from './group/group-members/group-members.component';
 import { CrudPositionComponent } from './position/crud-position/crud-position.component';
 import { LogoutComponent } from './security/logout/logout.component';
+import { HomeComponent } from './home/home/home.component';
 
 const routes: Routes = [
-  { path: '', component: ViewPostComponent },
+  { path: '', component: HomeComponent },
+  { path: 'posts', component: ViewPostComponent },
   { path: 'signin', component: SigninComponent },
   { path: 'signup', component: SignupComponent },
   { path: 'company', 

@@ -1,14 +1,6 @@
 <div class="container mt-1">
-    <div class="row mb-2">
-        <ul class="nav justify-content-center bg-body rounded">
-            <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="/"><i class="fas fa-home fa-2x"></i></a>
-            </li>
-            <li class="nav-item">
-              <button class="nav-link btn " data-bs-toggle="modal" data-bs-target="#createPostModal"><i class="fas fa-pen-square fa-2x"></i></button>
-            </li>
-          </ul>
-    </div>
+  <button class="nav-link btn fixed" data-bs-toggle="modal" data-bs-target="#createPostModal"><i class="fas fa-pen-square fa-2x"></i></button>
+    
     <div class="row">
         <div class="alert alert-warning text-center" role="alert" *ngIf="errorMessage">{{errorMessage}}</div>
         <div class="alert alert-success text-center" role="alert" *ngIf="successMessage">{{successMessage}}</div>

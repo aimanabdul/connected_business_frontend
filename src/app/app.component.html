@@ -8,14 +8,16 @@
   
     <div [ngbCollapse]="isMenuCollapsed" class="collapse navbar-collapse p-1">
       <ul class="navbar-nav">
-        <li class="nav-item active">
-          <a class="btn nav-link" [routerLink]="'.'" (click)="isMenuCollapsed = true">Home</a>
-        </li>
         <li class="nav-item">
-          <a class="btn nav-link" [routerLink]="'.'" (click)="isMenuCollapsed = true">About CB</a>
+          <a class="btn nav-link" routerLink="/" (click)="isMenuCollapsed = true">Home</a>
+        </li>
+        <li class="nav-item" *ngIf="userID">
+          <a class="btn nav-link" routerLink="/posts" (click)="isMenuCollapsed = true">Social Room</a>
         </li>
         <li ngbDropdown class="nav-item">
-          <a class="btn nav-link" id="dropdownMyAccount" ngbDropdownToggle ><i class="fas fa-user-circle"></i> Mijn Account</a>
+          <a class="btn nav-link" id="dropdownMyAccount" ngbDropdownToggle >
+            <i class="fas fa-user-circle"></i> Mijn Account  <span *ngIf="username">( {{username}} )</span>
+          </a>
           <div ngbDropdownMenu aria-labelledby="dropdownMyAccount">
             <button ngbDropdownItem class="btn" routerLink="/signin">Aanmelden</button>
             <button ngbDropdownItem class="btn" routerLink="/signup">Registereren</button>

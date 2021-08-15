@@ -27,5 +27,11 @@ export class UserService {
     return this.http.get<User>("http://localhost:8080/connectedb/users/user/email/" + email);
   }
 
+  uploadProfilePic(id: string, file: File){
+    const fd = new FormData();
+    fd.append('profilePic', file)
+    return this.http.put<any>("http://localhost:8080/connectedb/users/user/upload/profilepic/"+ id, fd);
+  }
+
 
 }

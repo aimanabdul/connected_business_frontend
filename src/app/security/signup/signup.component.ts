@@ -34,9 +34,8 @@ export class SignupComponent implements OnInit {
     //API call
     this._authenticateService.signup(this.user).subscribe(
       res => {
-        console.log(res);
         this.successMessage = "Account is met success aangemaakt!"
-        this.router.navigate(['/']);
+        this.router.navigate(['/signin']);
       }, 
       err=>{
         this.errorMessage = err.error.message;

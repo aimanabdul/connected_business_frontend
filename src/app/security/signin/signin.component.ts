@@ -3,7 +3,8 @@ import { NgForm } from '@angular/forms';
 import { UserLogin } from '../../models/user-login.model'
 import { AuthenticateService } from '../services/authenticate.service';
 import {Router} from "@angular/router";
-import { BehaviorSubject, Observable } from 'rxjs';
+import { UserService } from 'src/app/user/services/user.service';
+import { User } from 'src/app/models/user.model';
 
 @Component({
   selector: 'app-signin',
@@ -13,7 +14,12 @@ import { BehaviorSubject, Observable } from 'rxjs';
 export class SigninComponent implements OnInit {
 
 
-  constructor(private _authenticateService : AuthenticateService,  private router: Router) { }
+  constructor(
+    private _authenticateService : AuthenticateService,  
+    private router: Router,
+    private _userService: UserService,
+  
+    ) { }
 
   
   ngOnInit(): void {
@@ -33,7 +39,8 @@ export class SigninComponent implements OnInit {
           localStorage.setItem('username', res.username);
           localStorage.setItem('userID', res._id);
           localStorage.setItem('accessToken', res.accessToken);
-          localStorage.setItem('companyID', res.companyID);
+          // find user and set company id in localstorage
+          this.findUser(res._id)
           this.router.navigate(['/']);
         },
         err => {this.errorMessage = err.error.message;}
@@ -49,6 +56,20 @@ export class SigninComponent implements OnInit {
     err=>{
       this.errorMessage = "Fout bij het laden van auth user"
     }
+    )
+  }
+
+  user = {} as User;
+  findUser(id: string){
+    this._userService.findUserById(id).subscribe(res => {
+      this.user = res
+      console.log(res)
+      //set companyID in localStorage
+      if(res.companyID){
+        localStorage.setItem('companyID', res.companyID);
+      }
+    },
+    err=>{this.errorMessage = "Fout bij het laden van gegevens van gebruiker"}
     )
   }
 

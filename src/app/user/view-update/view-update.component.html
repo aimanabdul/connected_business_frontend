@@ -1,34 +1,50 @@
-<div class="contianer mt-3">
+<div class="container mt-3">
     <div class="row text-center">
         <h1>Mijn Account</h1>
     </div>
-    <div class="row">
-        <p class="alert alert-danger text-center" role="alert" *ngIf="errorMessage">
-            <span>{{errorMessage}}</span>
-        </p>
-        <p class="alert alert-success text-center" role="alert" *ngIf="successMessage">
-            <span>{{successMessage}}</span>
-        </p>
-      <form #userForm="ngForm" (ngSubmit)="onSubmit()">
-            <div class="row">
-                <div class="col mb-3 form-group">
-                    <label for="firstName" class="form-label ng-valid">First name</label>
-                    <input matInput type="text" class="form-control" id="firstName" [(ngModel)]="user.firstName" name="firstName" #firstName="ngModel" placeholder="Voornaam" required>
-                    <div [hidden]="firstName.valid" class="alert alert-danger">Voornaam is verplicht</div>
-                </div>
-                <div class="col col-sm-12 mb-3 form-group">
-                    <label for="lastName" class="form-label">Familienaam</label>
-                    <input type="text" class="form-control" id="lastName" [(ngModel)]="user.lastName" name="lastName" placeholder="Familienaam" #lastName="ngModel" required>
-                    <div [hidden]="lastName.valid" class="alert alert-danger">Familienaam is verplicht</div>
-                </div>
-                    <div class="col col-sm-12 mb-3 form-group">
-                    <label for="email" class="form-label">Email</label>
-                    <input type="email" class="form-control" id="email" [(ngModel)]="user.email" name="email" placeholder="email" #email="ngModel"   disabled>
-                </div>
+    <p class="alert alert-danger text-center" role="alert" *ngIf="errorMessage">
+        <span>{{errorMessage}}</span>
+    </p>
+    <p class="alert alert-success text-center" role="alert" *ngIf="successMessage">
+        <span>{{successMessage}}</span>
+    </p>
+    <div class="row mb-2">
+        <div id="profilePicForm" class="mb-3"  style="width: 30rem;">
+            <div>
+                <img [src]="user.profilePic" class="rounded shadow" alt="" *ngIf="user.profilePic" style="width: 18rem;">
+                <img [src]="noImageUrl" class="rounded" alt="" *ngIf="!user.profilePic" style="width: 18rem;">
             </div>
-          <div class="row mt-2">
-            <button [disabled]="!userForm.form.valid" type="submit" class="btn btn-outline-success">Opslaan</button>
-          </div> 
-      </form>
+            <div class="alert alert-danger" role="alert" *ngIf="profilePicErrorMessage">{{profilePicErrorMessage}}</div>
+            <div class="alert alert-danger" role="alert" *ngIf="errorMessageUpload">{{errorMessageUpload}}</div>
+            <div class="alert alert-success" role="alert" *ngIf="successMessageUpload">{{successMessageUpload}}</div>
+            <div class="input-group mb-3">
+                <label class="input-group-text" for="profilePic">Bewerken</label>
+                <input type="file" (change)="onFileSelected($event)" class="form-control" id="profilePic">
+            </div>
+            <div class="row mt-2">
+                <button type="button" (click)="onClickUploadProfilePic(user._id)" class="btn btn-outline-success">Profilefoto bewerken</button>
+            </div>
+        </div>
+    </div>
+    <div class="row mt-txl">
+        <form #userForm="ngForm" (ngSubmit)="onSubmit()">
+            <div class="col mb-3 form-group">
+                <label for="firstName" class="form-label ng-valid">First name</label>
+                <input matInput type="text" class="form-control" id="firstName" [(ngModel)]="user.firstName" name="firstName" #firstName="ngModel" placeholder="Voornaam" required>
+                <div [hidden]="firstName.valid" class="alert alert-danger">Voornaam is verplicht</div>
+            </div>
+            <div class="col col-sm-12 mb-3 form-group">
+                <label for="lastName" class="form-label">Familienaam</label>
+                <input type="text" class="form-control" id="lastName" [(ngModel)]="user.lastName" name="lastName" placeholder="Familienaam" #lastName="ngModel" required>
+                <div [hidden]="lastName.valid" class="alert alert-danger">Familienaam is verplicht</div>
+            </div>
+                <div class="col col-sm-12 mb-3 form-group">
+                <label for="email" class="form-label">Email</label>
+                <input type="email" class="form-control" id="email" [(ngModel)]="user.email" name="email" placeholder="email" #email="ngModel"   disabled>
+            </div>
+            <div class="row mt-2">
+                <button [disabled]="!userForm.form.valid" type="submit" class="btn btn-outline-success">Opslaan</button>
+            </div> 
+        </form>
     </div>
 </div>
