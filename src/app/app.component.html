@@ -23,7 +23,7 @@
             <button ngbDropdownItem class="btn" routerLink="/signup">Registereren</button>
             <div *ngIf="userID">
               <button ngbDropdownItem class="btn" *ngIf="userID" routerLink="/users/view">Mijn profiel</button>
-              <button ngbDropdownItem class="btn" routerLink="/company/create">Bedrijf aanmaken</button>
+              <button ngbDropdownItem class="btn" routerLink="/company/create" *ngIf="!hasCompany">Bedrijf aanmaken</button>
               <button ngbDropdownItem class="btn" routerLink="/company/view" *ngIf="isSuperadmin">Mijn bedrijf</button>
               <button ngbDropdownItem class="btn" routerLink="/logout">Afmelden</button>
             </div>

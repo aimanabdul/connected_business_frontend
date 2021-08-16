@@ -15,10 +15,12 @@ export class AppComponent {
   username: string = null
   userID: string = null;
   isSuperadmin: string = null;
+  hasCompany: string = null
   ngOnInit(): void {
     this.username = localStorage.getItem('username');
     this.userID = localStorage.getItem('userID');
     this.isSuperadmin = localStorage.getItem('isSuperadmin');
+    this.hasCompany = localStorage.getItem('hasCompany');
   }
 
    isMenuCollapsed = true;

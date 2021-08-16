@@ -74,6 +74,9 @@ export class SigninComponent implements OnInit {
         localStorage.setItem('companyID', res.companyID);
       }
 
+      if (res.companyID){
+        localStorage.setItem('hasCompany', 'yes');
+      }
       // check if superadmin
       // if superadmin set role superadmin in local storage
       for(var i = 0; i < res.roles.length; i ++){
